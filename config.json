@@ -1,0 +1,17 @@
+{
+    "server": {
+        "address": "db.zmitac.aei.polsl.pl",
+        "hostname": "db.zmitac.aei.polsl.pl",
+        "redirectsTo": [
+            "https://db.zmitac.aei.polsl.pl/"
+        ],
+        "homepage": "/baza/st_main.php",
+        "port": 443,
+        "tls": "TLSv1"
+    },
+    "proxy": {
+        "port": 5613,
+        "fillsFile": "./static/fills.html",
+        "errorFile": "./static/error.html"
+    }
+}
