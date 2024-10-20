@@ -7,10 +7,12 @@
         ],
         "homepage": "/baza/st_main.php",
         "port": 443,
-        "tls": "TLSv1"
+        "tls": "TLSv1",
+        "allowExpiredCert": true
     },
     "proxy": {
         "port": 5613,
+        "host": "localhost",
         "fillsFile": "./static/fills.html",
         "errorFile": "./static/error.html"
     }

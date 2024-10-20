@@ -14,15 +14,48 @@ const fillsContent = fs.readFileSync(config.proxy.fillsFile);
 const errorContent = fs.readFileSync(config.proxy.errorFile);
 
 tlsWrapper.wrap();
+tlsWrapper.config.passExpired = config.server.allowExpiredCert;
 
+let requestCount = 0;
 const proxyServer = http.createServer((req, res) => {
+    const requestId = requestCount++;
+
+    const handleError = (rawErr) => {
+        res.writeHead(500);
+
+        let err = rawErr + ""
+
+        if(err.includes("ssl_choose_client_version:unsupported protocol"))
+        {
+            err = `Target server uses unsupported protocol. Change the server.tls parameter in config to a valid protocol this server is using.`
+        } else if(err === "Error: certificate has expired") {
+            err = `Target server uses expired certificate. Refresh the certificate or change the server.allowExpiredCert parameter in config to true.`
+        }
+
+        const errorString = 
+            errorContent
+            .toString()
+            .replace("{{error}}", err);
+
+        res.write(errorString);
+        res.end();
+
+        console.log(`${requestId} :: Encountered error: `, rawErr);
+    }
+
     try {
-        if(url.parse(req.url, false).path == "/")
+        const parsedUrl = url.parse(req.url, false);
+
+        console.log(`${requestId} :: Incoming connection from ${req.socket.remoteAddress} requesting ${req.url}`);
+
+        if(config.server.homepage && parsedUrl.path == "/")
         {
             res.writeHead(302, {
                 location: config.server.homepage
             })
             res.end()
+
+            console.log(`${requestId} :: Redirected to homepage`);
 
             return
         }
@@ -52,11 +85,13 @@ const proxyServer = http.createServer((req, res) => {
                 config.server.redirectsTo.forEach(url => {
                     redir = redir.replace(
                         url,
-                        `http://localhost:${config.proxy.port}/`
+                        `http://${config.proxy.host}:${config.proxy.port}/`
                     );
                 })
 
                 pres.headers.location = redir;
+
+                console.log(`${requestId} :: Incoming 302 redirect patched`);
             }
 
             if(pres.headers["content-type"] === "text/html")
@@ -76,28 +111,28 @@ const proxyServer = http.createServer((req, res) => {
 
                 pres.pipe(htmlAppendTransform).pipe(res);
 
+                console.log(`${requestId} :: Incoming text/html patched and piped`);
+
                 return
             }
 
             res.writeHead(pres.statusCode, pres.headers);
             pres.pipe(res);
+
+            console.log(`${requestId} :: Incoming generic response patched and piped`);
+        })
+
+        proxy.on('error', (error) => {
+            handleError(error)
         })
 
         req.pipe(proxy)
     } catch (error) {
-        res.writeHead(500);
-
-        const errorString = 
-            errorContent
-            .toString()
-            .replace("{{error}}", error);
-
-        res.write(errorString);
-        res.end();
+        handleError(error);
     }
 })
 
 proxyServer.listen(config.proxy.port);
 
 console.log(`Proxy listening on ${config.proxy.port}`);
-console.log(`Open http://localhost:${config.proxy.port}/ in browser.`);
+console.log(`Open http://${config.proxy.host}:${config.proxy.port}/ in browser.`);
