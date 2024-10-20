@@ -13,7 +13,7 @@ const tlsConnectWrap = (...args) => {
     const verifyErrorWrap = (...args) => {
         const error = verifyErrorOriginal();
 
-        if(config.passExpired && error.code === 'CERT_HAS_EXPIRED')
+        if(config.passExpired && error && error.code === 'CERT_HAS_EXPIRED')
         {
             console.warn("Passing TLS expired certificate.")
 
