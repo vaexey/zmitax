@@ -1,4 +1,4 @@
-# zmitac-proxy
+# zmitax
 A simple remote https to local http proxy that allows to open websites that are still using the obsolete TLSv1 (or similiar) protocol.
 Applies modifications to every `text/html` response, allowing for easy visual enhancements to the websites.  
 The default config for this proxy allows to connect to SUT ZMiTAC database web app which uses TLS v1 and is unavailable in modern browsers.  
@@ -17,7 +17,7 @@ This project requires [NodeJS and NPM](https://nodejs.org/en).
 #### B. Latest features from git
 Clone this repository
 ```
-git clone https://github.com/vaexey/zmitac-proxy.git
+git clone https://github.com/vaexey/zmitax.git
 ```
 
 ## Configuration
@@ -39,7 +39,7 @@ The configuration JSON file is stored at `./config.json`. Proxy must be restarte
 ## Usage
 Launch the server
 ```
-cd zmitac-proxy
+cd zmitax
 npm start
 ```
 Open `http://localhost:PORT/` in your browser, where `PORT` is the port you defined in `config.json`.  
@@ -53,4 +53,4 @@ Local proxy server if not put behind a firewall may be exploited for abuse.
 > Use this code at your own risk.
 
 ## License
-The software is licensed under [3-Clause BSD NON-AI License](https://github.com/vaexey/zmitac-proxy/blob/master/LICENSE).
+The software is licensed under [3-Clause BSD NON-AI License](https://github.com/vaexey/zmitax/blob/master/LICENSE).

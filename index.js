@@ -7,7 +7,7 @@ const tlsWrapper = require("./tlsWrapper");
 
 const config = require("./config.json");
 
-console.log("Starting zmitac-proxy...");
+console.log("Starting zmitax...");
 
 console.log("Loading defined html files...");
 const fillsContent = fs.readFileSync(config.proxy.fillsFile);
