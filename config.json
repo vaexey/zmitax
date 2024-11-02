@@ -43,6 +43,6 @@
             "path": "./static",
             "url": "/zmitax/static"
         },
-        "inject": "./static/fills.html"
+        "inject": "./static/inject.html"
     }
 }

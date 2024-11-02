@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+$colorBg: #ccc;
+$colorFg: #333;
+
+$colorF1: #893e8a;
+$colorF2: #fd20d0;
+
+body
+{
+    color: $colorFg;
+    background-color: $colorBg;
+
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+    margin: 0;
+    padding: 0;
+}
+
+a
+{
+    color: $colorF1;
+
+    &:visited
+    {
+        color: $colorF1;
+    }
+}
+
+input, button, select
+{
+    font-size: 1.2em;
+
+    margin: 10px;
+    padding: 15px;
+
+    box-shadow: 0 0 10px #00000080;
+}
+
+input[type="text"], input[type="password"], select
+{
+    border-radius: 15px;
+    border-style: none;
+}
+
+input[type="submit"], button
+{
+    background: linear-gradient(30deg, $colorF1, $colorF2);
+    border-radius: 15px;
+    border-style: none;
+
+    color: white;
+}
+
+.hide
+{
+    display: none;
+}
+
+.show
+{
+    display: unset !important;
+}
+
+#zmitax
+{
+    // width: 100vw;
+    height: 100vh;
+    overflow: auto;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: start;
+
+    .nav
+    {
+        background: white;
+        width: 100%;
+
+        display: flex;
+        flex-flow: row;
+        justify-content: left;
+        align-items: center;
+
+        .logo img
+        {
+            margin: 10px 30px 10px 10px;
+            height: 80px;
+
+            transition: 0.2s filter linear;
+
+            &:hover
+            {
+                filter: blur(3px);
+            }
+        }
+
+        .links
+        {
+            flex: 1;
+            height: 100%;
+
+            display: flex;
+            flex-flow: row;
+            justify-content: left;
+            align-items: center;
+
+            & > a
+            {
+                display: block;
+                width: fit-content;
+
+                padding: 0 25px;
+
+                color: black;
+                font-size: 1.2em;
+                font-weight: bold;
+
+                transition: 0.2s text-decoration ease-out;
+                text-decoration: transparent underline;
+
+                &:hover
+                {
+                    text-decoration: red underline;
+                }
+            }
+        }
+    }
+}
+
+.zmi_baza
+{
+    &.zmi_st_login_html
+    {
+        @extend .show;
+
+        & > h2, form, center
+        {
+            @extend .hide;
+        }
+
+        .login
+        {
+            flex: 1;
+
+            width: 100%;
+            margin: 0 auto;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            form
+            {
+                display: block;
+
+                width: 300px;
+
+                display: flex;
+
+                flex-flow: column;
+                align-items: stretch;
+                justify-content: center;
+            }
+        }
+    }
+
+    &.zmi_st_main_php
+    {
+        @extend .show;
+
+        & > table, hr, p
+        {
+            @extend .hide;
+        }
+    }
+}

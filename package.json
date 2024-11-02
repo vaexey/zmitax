@@ -3,12 +3,18 @@
   "version": "1.1.0",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/index.js"
+    "start": "tsc && node dist/index.js",
+    "build-web": "./script/build_web.sh"
   },
   "author": "vaexey",
   "license": "UNLICENSED",
   "description": "",
   "devDependencies": {
-    "@types/node": "^22.8.6"
+    "@types/mime-types": "^2.1.4",
+    "@types/node": "^22.8.6",
+    "sass": "^1.80.6"
+  },
+  "dependencies": {
+    "mime-types": "^2.1.35"
   }
 }

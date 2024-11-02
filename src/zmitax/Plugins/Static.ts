@@ -3,6 +3,7 @@ import { Plugin } from "../Plugin";
 
 import * as url from "url"
 import * as fs from "fs/promises"
+import * as mimeTypes from "mime-types"
 
 export class StaticPlugin extends Plugin
 {
@@ -41,10 +42,17 @@ export class StaticPlugin extends Plugin
 
         const localPath = this.path + parsedUrl.substring(this.url.length)
 
+        const mimeType = mimeTypes.lookup(localPath)
+
+        if(!mimeType)
+        {
+            throw `Static file ${parsedUrl} cannot be served`
+        }
+
         const content = await fs.readFile(localPath)
 
         res.writeHead(200, {
-            "content-type": "text/html"
+            "content-type": mimeType
         })
         res.write(content)
         res.end()
