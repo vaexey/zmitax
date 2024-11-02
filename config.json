@@ -6,15 +6,43 @@
             "https://db.zmitac.aei.polsl.pl/",
             "https://zmitac.aei.polsl.pl/"
         ],
-        "homepage": "/baza/st_main.php",
         "port": 443,
-        "tls": "TLSv1",
-        "allowExpiredCert": true
+        "tls": {
+            "version": "TLSv1",
+            "wrapTlsConnect": true,
+            "passExpiredCertificates": true,
+            "forceMinTlsVersion": true,
+            "forceLowestSecurityLevel": true
+        }
     },
     "proxy": {
         "port": 5613,
-        "host": "localhost",
-        "fillsFile": "./static/fills.html",
-        "errorFile": "./static/error.html"
+        "host": "localhost"
+    },
+    "plugins": {
+        "homepage": "/baza/st_main.php",
+        "redirectPatcher": {
+            "from": [
+                "^https:\\/\\/db\\.zmitac\\.aei\\.polsl\\.pl\\/(.*)$",
+                "^https:\\/\\/zmitac\\.aei\\.polsl\\.pl\\/(.*)$"
+            ],
+            "to": null
+        },
+        "linkPatcher": {
+            "from": [
+                "https:\\/\\/db\\.zmitac\\.aei\\.polsl\\.pl\\/(.*)",
+                "https:\\/\\/zmitac\\.aei\\.polsl\\.pl\\/(.*)"
+            ],
+            "to": null
+        },
+        "isofix": {
+            "encoding": "iso-8859-2",
+            "urlFilter": "^\\/baza\\/.*$"
+        },
+        "static": {
+            "path": "./static",
+            "url": "/zmitax/static"
+        },
+        "inject": "./static/fills.html"
     }
 }

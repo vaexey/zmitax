@@ -4,12 +4,11 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug proxy",
-            "skipFiles": [
-                "<node_internals>/**"
+            "name": "Launch (requires tsc --watch)",
+            "program": "${workspaceFolder}/src/index.ts",
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.(m|c|)js",
             ],
-            "program": "${workspaceFolder}/index.js",
-            "runtimeArgs": ["--tls-min-v1.0", "--tls-cipher-list=DEFAULT@SECLEVEL=0"]
         }
     ]
 }

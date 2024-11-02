@@ -1,11 +1,14 @@
 {
   "name": "zmitax",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "index.js",
   "scripts": {
-    "start": "node --tls-min-v1.0 --tls-cipher-list=DEFAULT@SECLEVEL=0 index.js"
+    "start": "tsc && node dist/index.js"
   },
   "author": "vaexey",
   "license": "UNLICENSED",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^22.8.6"
+  }
 }
